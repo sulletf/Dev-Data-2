@@ -28,7 +28,7 @@ def reservations():
 def find_room():
     # help : request.args.get('email') returns the email field value of the web form
     #room_number = Reservation.find_room(...)
-
+    pass
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
