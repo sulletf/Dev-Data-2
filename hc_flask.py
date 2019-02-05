@@ -14,6 +14,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    #revois du html avec des valeur réel
     return render_template('index.html', name=Facade.get_name())
 
 @app.route("/hotels")
@@ -22,13 +23,13 @@ def hotels():
 
 @app.route("/reservations")
 def reservations():
-    return render_template('reservations.html', hotel_list=Hotel.get_hotels(conn))
+    return render_template('reservations.html', hotel_list=Reservation.find_room(conn))
 
 @app.route("/find_room", methods=['GET', 'POST'])
 def find_room():
+    pass
     # help : request.args.get('email') returns the email field value of the web form
     #room_number = Reservation.find_room(...)
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
