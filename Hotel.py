@@ -14,9 +14,15 @@ class Hotel:
   def get_hotels(conn):
     hotels = []
 
+
     cur = conn.cursor()
 
     # votre code ici
+    cur.execute("SELECT hotel.country,hotel.address,hotel.postcode,hotel.town,country.name FROM hotel INNER JOIN country ON hotel.country = country.id WHERE open = 1 ;")
+    
+    for elem in cur.fetchall() :
+      hotels.append({"country":elem[4],"address":elem[1],"postcode":elem[2],"town":elem[3]})
+    print(hotels)
 
     cur.close()
 
@@ -55,4 +61,6 @@ class Hotel:
     cur = conn.cursor()
 
     cur.execute("DROP TABLE IF EXISTS hotel")
+  
 
+XXX = Hotel
