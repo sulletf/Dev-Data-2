@@ -16,7 +16,10 @@ class Hotel:
 
     cur = conn.cursor()
 
-    # votre code ici
+    cur.execute("""SELECT country.name, hotel.address, hotel.postcode, hotel.town, hotel.stars FROM hotel INNER JOIN country ON hotel.country = country.id WHERE open = 1""")
+
+    for elem in cur.fetchall():
+      hotels.append({'country':elem[0],'address':elem[1],'postcode':elem[2],'town':elem[3]})
 
     cur.close()
 
