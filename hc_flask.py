@@ -27,7 +27,21 @@ def reservations():
 @app.route("/find_room", methods=['GET', 'POST'])
 def find_room():
     # help : request.args.get('email') returns the email field value of the web form
-    #room_number = Reservation.find_room(...)
+    hotel_id = request.args.get('hotel_id')
+    check_in = request.args.get('check_in')
+    check_out = request.args.get('check_out')
+    num_persons = request.args.get('num_persons')
+    email = request.args.get('email')
+
+    room_number = Reservation.find_room(conn, hotel_id, check_in, num_persons)
+
+    if room_number is None:
+      return render_template('room_notfound.html', check_in=check_in)
+    else:
+      resa = Reservation(email, hotel_id, room_number, check_in, check_out, num_persons)
+      resa.load(conn)
+      conn.commit()
+      return render_template('room_found.html', check_in=check_in, check_out=check_out, email=email)
 
 
 if __name__ == "__main__":
